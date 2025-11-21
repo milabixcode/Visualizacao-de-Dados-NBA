@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NBA • Narrativa Visual de Dados</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>NBA — Análise Exploratória de Dados</h1>
+    <div class="controls">
+      <button id="btn-ingest">Ingerir/Atualizar banco</button>
+      <button id="btn-refresh">Atualizar gráficos</button>
+      <span id="meta"></span>
+    </div>
+    <p class="narrative">
+      <strong>Narrativa:</strong> Este projeto explora dados do NBA para identificar padrões temporais, 
+      desempenho de jogadores e equipes, e correlações entre diferentes estatísticas. As visualizações 
+      abaixo mostram variações sazonais, distribuição de pontos, top jogadores e equipes, e análises 
+      de qualidade dos dados. O painel de qualidade documenta nossas decisões de limpeza e filtros.
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Distribuição de Jogos por Temporada</h2>
+      <p class="analysis-text">A análise temporal revela a distribuição de jogos ao longo das temporadas, permitindo identificar períodos de maior atividade e variações sazonais.</p>
+      <div id="chart-seasonal" class="chart"></div>
+    </section>
+
+    <section>
+      <h2>Top Times por Pontos Totais</h2>
+      <p class="analysis-text">Os times com maior total de pontos no dataset, mostrando total de pontos e média por jogo. Esta visualização destaca as equipes mais ofensivas.</p>
+      <div id="chart-top-players" class="chart"></div>
+    </section>
+
+    <section>
+      <h2>Estatísticas por Equipe</h2>
+      <p class="analysis-text">Análise comparativa das equipes, mostrando total de pontos, média por jogo e número de jogos. Permite identificar as equipes mais ofensivas.</p>
+      <div id="chart-teams" class="chart"></div>
+    </section>
+
+    <section>
+      <h2>Correlação: Pontos vs Assistências</h2>
+      <p class="analysis-text">Gráfico de dispersão explorando a relação entre pontos marcados e assistências, revelando padrões de jogo e eficiência dos jogadores.</p>
+      <div id="chart-scatter" class="chart"></div>
+    </section>
+
+    <section>
+      <h2>Evolução de Pontos por Quarto ao Longo dos Anos</h2>
+      <p class="analysis-text">Evolução da média de pontos marcados por quarto ao longo dos anos. Um quarto no basquete NBA é um período de 12 minutos. O gráfico mostra como a ofensiva mudou ao longo do tempo, revelando tendências históricas no jogo.</p>
+      <div id="chart-quarters" class="chart"></div>
+    </section>
+
+    <section>
+      <h2>Eficiência de Arremessos</h2>
+      <p class="analysis-text">Comparação da eficiência de arremessos entre times: percentual de arremessos de campo (FG%), de três pontos (3P%) e lances livres (FT%).</p>
+      <div id="chart-shooting" class="chart"></div>
+    </section>
+
+    <section>
+      <h2>Qualidade do Dado (diagnósticos)</h2>
+      <p class="analysis-text">Auditoria dos dados carregados, identificando registros válidos, valores inválidos e informações faltantes. Os diagnósticos abaixo mostram a qualidade geral do dataset e ajudam a entender as decisões de limpeza aplicadas.</p>
+      <div id="quality"></div>
+      <ul id="decisions">
+        <li><strong>Validação de Pontos:</strong> Filtramos registros com pontos negativos ou superiores a 200 (valores inválidos para um quarto de jogo).</li>
+        <li><strong>Validação de Datas:</strong> Removemos registros com <em>game_date_est</em> nulo ou que não podem ser convertidos para data válida.</li>
+        <li><strong>Validação de Times:</strong> Filtramos registros onde ambos <em>team_abbreviation</em> e <em>team_city_name</em> estão nulos.</li>
+        <li><strong>Validação de Tipos:</strong> Usamos <code>TRY_CAST</code> para garantir que valores numéricos podem ser convertidos corretamente antes de processar.</li>
+        <li><strong>Filtros Aplicados:</strong> Todas as visualizações aplicam filtros em tempo de execução para garantir dados válidos, usando <code>WHERE</code> clauses com validações de tipo e valor.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <small>Feito com DuckDB + D3.js. Coloque os arquivos CSV em <code>/data</code>.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
