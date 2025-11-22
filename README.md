@@ -1,4 +1,4 @@
-# NBA — Narrativa Visual Replicável
+# NBA
 
 Sistema completo para carregar dados originais do NBA no **DuckDB** e construir visualizações **D3.js**:
 - Variação temporal (distribuição de jogos por temporada)
